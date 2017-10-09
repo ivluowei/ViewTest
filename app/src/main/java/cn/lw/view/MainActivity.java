@@ -1,42 +1,33 @@
 package cn.lw.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-
-import cn.lw.view.view.CircleView;
+import android.view.View;
+import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
-
-    private CircleView mCircleView;
-    private boolean flag = true;
-
-
+    private Button mBtnView;
+    private Button mBtnViewGroup;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mCircleView = (CircleView) findViewById(R.id.circleview);
-        new Thread(new Runnable() {
+        mBtnView = (Button) findViewById(R.id.btn_view);
+        mBtnViewGroup = (Button) findViewById(R.id.btn_viewgroup);
+
+        mBtnView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void run() {
-                while (flag) {
-                    try {
-                        Thread.sleep(100);
-
-                        int progress = mCircleView.getProgress();
-
-                        if (progress < 100) {
-                            mCircleView.setProgress(++progress);
-                        } else {
-                            flag = false;
-                        }
-
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                }
-
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, ViewActivity.class));
             }
-        }).start();
+        });
+
+        mBtnViewGroup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, ViewGroupActivity.class));
+            }
+        });
     }
 }
